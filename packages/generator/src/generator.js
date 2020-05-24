@@ -253,8 +253,9 @@ export default class Generator {
     generateRoutes.forEach((route) => {
       // route is either a string or like { route : '/my_route/1', payload: {} }
       const path = isString(route) ? route : route.route
-      routeMap[path] = {
-        route: path,
+      const sanitizedPath = path.replace(/([^:])(\/\/+)/g, '$1/')
+      routeMap[sanitizedPath] = {
+        route: sanitizedPath,
         payload: route.payload || null
       }
     })
